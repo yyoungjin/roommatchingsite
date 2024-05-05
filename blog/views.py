@@ -3,10 +3,24 @@ from django.utils import timezone
 from .models import Post
 from .forms import PostForm
 from django.shortcuts import redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def post_list(request):
     posts = Post.objects.all()
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    paginator = Paginator(posts, 20)  # 20개의 객체를 한 페이지에 보여줌
+
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        # 페이지가 정수가 아닐 경우, 첫 번째 페이지를 반환
+        objects = paginator.page(1)
+    except EmptyPage:
+        # 페이지가 범위를 벗어날 경우, 마지막 페이지를 반환
+        objects = paginator.page(paginator.num_pages)
+
+    return render(request, 'blog/post_list.html', {'posts': posts, 'page': objects})
 
 
 def post_detail(request, pk):
