@@ -1,0 +1,83 @@
+.main_post-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 12px;
+  margin-top: 12px;
+  margin-left: 12px;
+}
+@media screen and (max-width: 1048px) {
+  .main_post-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.main_post-box {
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+.main-post--top {
+  height: 150px;
+  background-color: gray;
+  position: relative;
+}
+.main-post--top .main-post--type {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: white;
+  background-color: green;
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 5px 12px;
+}
+.main-post--bottom {
+  padding: 10px;
+  font-size: 14px;
+}
+.main-post--author,
+.main-post--phone {
+  text-align: center;
+}
+.main-post--bottom div:last-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+.main-post--bottom div:last-child > a {
+  border-radius: 5px;
+  border: 1px solid gray;
+  width: calc(50% - 5px);
+  text-align: center;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+/* pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  width: min(100%, 500px);
+  margin: 50px auto 0;
+}
+.step-links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.step-container{
+    display: flex;
+   gap: 10px;
+   align-items: center;
+   margin: 0 50px;
+    
+}
+.step-links .current{
+    background-color: gray;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+.fixed-width{
+    width: 100px;
+}

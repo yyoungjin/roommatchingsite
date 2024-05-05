@@ -1,13 +1,62 @@
-{% extends 'blog/base.html' %}
-
-{% block content %}
-    {% for post in posts %}
-        <div class="post">
-            <div class="date">
-                {{ post.published_date }}
-            </div>
-            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaksbr }}</p>
+{% extends 'blog/base.html' %} {% block content %}
+<div>
+  <div class="main_post-container">
+    {% for post in page.object_list %}
+    <div class="main_post-box">
+      <div class="main-post--top">
+        <!-- <img src="{{ post.image.url }}" alt="post image" /> -->
+        <div class="main-post--type">투룸</div>
+      </div>
+      <div class="main-post--bottom">
+        <div class="main-post--location">장소</div>
+        <div class="main-post--author">{{ post.title }}</div>
+        <div class="main-post--phone">010-0000-0000</div>
+        <div>
+          <a href="">프로필</a>
+          <a href="">후기</a>
         </div>
+      </div>
+      <!-- <div class="main-post--date">{{ post.published_date }}</div> -->
+      <!-- <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1> -->
+      <!-- <p>{{ post.text|linebreaksbr }}</p> -->
+    </div>
     {% endfor %}
+  </div>
+  <div class="pagination">
+    <span class="step-links">
+        {% if page.has_previous %}
+        <!-- <a href="?page=1">« 처음</a> -->
+        <a href="?page={{ page.previous_page_number }}" class="fixed-width">‹ 이전</a>
+        {% else %}
+        <div class="fixed-width"></div>
+        {% endif %}
+
+        <div class="step-container">
+        {% for num in page.paginator.page_range %}
+        {% if num > page.number|add:'-3' and num < page.number|add:'3' %}
+            {% if num == page.number %}
+                <a href="?page={{ num }}" class="current">{{ num }}</a>
+            {% else %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% elif num == 1 or num == page.paginator.num_pages %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% elif num == page.number|add:'-3' or num == page.number|add:'3' %}
+            <span>...</span>
+        {% endif %}
+        {% endfor %}
+        </div>
+
+        {% if page.has_next %}
+            <a href="?page={{ page.next_page_number }}" class="fixed-width">다음 ›</a>
+            <!-- <a href="?page={{ page.paginator.num_pages }}">마지막 »</a> -->
+        {% else %}
+        <div class="fixed-width"></div>
+        {% endif %}
+        
+    
+     
+    </span>
+  </div>
+</div>
 {% endblock %}
