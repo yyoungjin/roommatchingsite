@@ -1,93 +1,185 @@
 {% load static %}
 <html>
-    <head>
-        <title>roommatch</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-    </head>
-    <body>
-        <header>
-            <div class="top_bar">
-                <div class="login_info pc">
-                    
-                    <div>
-                        <ul id="webticker" style="float: left; font-weight: bold; direction: ltr; font-size: 12px; color: rgb(85, 85, 85);">
-                        <li style="opacity: 0.8394;">접속주소 https://www.roommatch</li><li style="display: none;">주소변경 및 긴급공지 https://www.roomtmp [name SNS]</li></ul>
-                    </div>
-                    <div id="login_info_box1">
-                    {% if user.is_authenticated %}
-                        <span class="g_nick">
-                            <img src="/member/level/1.gif">{{ user.username }} [id] Lv.[1]</span><span class="divide">|</span><span class="point"><i class="fab fa-product-hunt" style="color: #ff6e00;"></i><a href="{% url 'users:logout' %}">로그아웃</a></span>
-                        <span class="divide">|</span>
-                        &nbsp;<a class="setting" href="/Member/Modify.aspx" data-toggle="tooltip" data-trigger="hover" title=" 설정 "><i class="fas fa-cogs"></i></a>
-                        &nbsp;&nbsp;<a class="mail" href="/Member/NoteList.aspx?mode=inbox" data-toggle="tooltip" data-trigger="hover" title="쪽지확인"><i class="far fa-envelope"></i>
-                            0</a>
-                        &nbsp;&nbsp;<a class="logout" href="/Member/Logout.aspx" data-toggle="tooltip" data-trigger="hover" title="로그아웃"><i class="fas fa-times-circle"></i></a>
-                    {% else %}
-                    <!-- 로그인 전 -->
-                        <span class="g_nick"></span><a href="{% url 'users:login' %}">로그인 </a><span class="divide">|</span><span class="point"><a href="{% url 'users:signup' %}"> 회원가입</a></span>
-                    {% endif %}
-                    </div>
-                    
-                </div>
+  <head>
+    <title>roommatch</title>
+    <link
+      rel="stylesheet"
+      href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"
+    />
+    <link
+      href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
+  </head>
+  <body>
+    <header>
+      <div class="top_bar">
+        <div class="login_info pc">
+          <div>
+            <ul
+              id="webticker"
+              style="
+                float: left;
+                font-weight: bold;
+                direction: ltr;
+                font-size: 12px;
+                color: rgb(85, 85, 85);
+              "
+            >
+              <li style="opacity: 0.8394">접속주소 https://www.roommatch</li>
+              <li style="display: none">
+                주소변경 및 긴급공지 https://www.roomtmp [name SNS]
+              </li>
+            </ul>
+          </div>
+          <div id="login_info_box1">
+            {% if user.is_authenticated %}
+            <span class="g_nick">
+              <img src="/member/level/1.gif" />{{ user.username }} [id]
+              Lv.[1]</span
+            ><span class="divide">|</span
+            ><span class="point"
+              ><i class="fab fa-product-hunt" style="color: #ff6e00"></i
+              ><a href="{% url 'users:logout' %}">로그아웃</a></span
+            >
+            <span class="divide">|</span>
+            &nbsp;<a
+              class="setting"
+              href="/Member/Modify.aspx"
+              data-toggle="tooltip"
+              data-trigger="hover"
+              title=" 설정 "
+              ><i class="fas fa-cogs"></i
+            ></a>
+            &nbsp;&nbsp;<a
+              class="mail"
+              href="/Member/NoteList.aspx?mode=inbox"
+              data-toggle="tooltip"
+              data-trigger="hover"
+              title="쪽지확인"
+              ><i class="far fa-envelope"></i> 0</a
+            >
+            &nbsp;&nbsp;<a
+              class="logout"
+              href="/Member/Logout.aspx"
+              data-toggle="tooltip"
+              data-trigger="hover"
+              title="로그아웃"
+              ><i class="fas fa-times-circle"></i
+            ></a>
+            {% else %}
+            <!-- 로그인 전 -->
+            <span class="g_nick"></span
+            ><a href="{% url 'users:login' %}">로그인 </a
+            ><span class="divide">|</span
+            ><span class="point"
+              ><a href="{% url 'users:signup' %}"> 회원가입</a></span
+            >
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <!-- 로고 -->
+        <div class="head">
+          <h1>
+            <a href="/" title="룸매치">
+              <img src="/image/logo.png" alt="룸매치" />
+            </a>
+          </h1>
+
+          <a class="gnbView mobile right" href="#void" title="전체메뉴보기"></a>
+        </div>
+
+        <!-- 검색박스 -->
+        <div class="searchBox pc">
+          <div class="search">
+            <div class="search_input">
+              <input
+                type="text"
+                id="s_keyword_pc"
+                placeholder="방 검색 (지역, 업체 명)"
+                onkeypress="if(event.keyCode == 13){doSearchClick(document.getElementById('s_keyword_pc').value); return false;}"
+              />
             </div>
-            <div class="wrap">
-                <!-- 로고 -->
-                <div class="head">
-                    <h1>
-                        <a href="/" title="룸매치">
-                            <img src="/image/logo.png" alt="룸매치">
-                        </a>
-                    </h1>
-                    
-                    <a class="gnbView mobile right" href="#void" title="전체메뉴보기"></a>
-                </div>
-
-                <!-- 검색박스 -->
-                <div class="searchBox pc">
-                    <div class="search">
-
-                        <div class="search_input">
-                            <input type="text" id="s_keyword_pc" placeholder="방 검색 (지역, 업체 명)" onkeypress="if(event.keyCode == 13){doSearchClick(document.getElementById('s_keyword_pc').value); return false;}">
-                        </div>
-                        <div class="search_button">
-                            <input type="button" title="검색전송" onclick="doSearchClick(document.getElementById('s_keyword_pc').value);">
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- 사이드 -->
-                <div class="side pc">
-                    <a href="#">
-                        <img src="/Image/pinterest.png"></a>
-                    <a href="#">
-                        <img src="/Image/youtube.png"></a>
-                    <a href="#">
-                        <img src="/Image/twitter.png"></a>
-                    <a href="#">
-                        <img src="/Image/facebook.png"></a>
-                </div>
-
+            <div class="search_button">
+              <input
+                type="button"
+                title="검색전송"
+                onclick="doSearchClick(document.getElementById('s_keyword_pc').value);"
+              />
             </div>
-        </header>
-        <nav class="pc">
-            <div class="nav_header">
-                <div class="header_menu">
-                    <a href="/" class="menu_box home" title="홈"><i class="fa fa-home"></i></a>
-                    <a href="/Board/List.aspx?id=notice" class="menu_box" title="공지사항"><i class="fas fa-exclamation-triangle"></i>공지사항</a>
-                    <a href="/Board/Chulsuk.aspx" class="menu_box" title="출석체크"><i class="fas fa-user-check"></i>출석체크</a>
-                    <a href="/Board/List.aspx?id=free" class="menu_box" title="자유게시판"><i class="far fa-keyboard"></i>자유게시판</a>
-                    <a href="/Board/List.aspx?id=qna" class="menu_box" title="질문게시판"><i class="far fa-question-circle"></i>질문게시판</a>
-                    <a href="/Board/List.aspx?id=review" class="menu_box" title="후기게시판"><i class="fas fa-user-edit"></i>후기게시판</a>
-                    <a href="/Board/List.aspx?id=contactus" class="menu_box" title="제휴문의"><i class="fas fa-hands-helping"></i>제휴문의</a>
-                    <a href="/" class="menu_box_last" title=""></a>
-                </div>
+          </div>
+        </div>
+
+        <!-- 사이드 -->
+        <div class="side pc">
+          <a href="#"> <img src="/Image/pinterest.png" /></a>
+          <a href="#"> <img src="/Image/youtube.png" /></a>
+          <a href="#"> <img src="/Image/twitter.png" /></a>
+          <a href="#"> <img src="/Image/facebook.png" /></a>
+        </div>
+      </div>
+    </header>
+    <nav class="pc">
+      <div class="nav_header">
+        <div class="header_menu">
+          <a href="/" class="menu_box home" title="홈"
+            ><i class="fa fa-home"></i
+          ></a>
+          <a href="/Board/List.aspx?id=notice" class="menu_box" title="공지사항"
+            ><i class="fas fa-exclamation-triangle"></i>공지사항</a
+          >
+          <a href="/Board/Chulsuk.aspx" class="menu_box" title="출석체크"
+            ><i class="fas fa-user-check"></i>출석체크</a
+          >
+          <a href="/Board/List.aspx?id=free" class="menu_box" title="자유게시판"
+            ><i class="far fa-keyboard"></i>자유게시판</a
+          >
+          <a href="/Board/List.aspx?id=qna" class="menu_box" title="질문게시판"
+            ><i class="far fa-question-circle"></i>질문게시판</a
+          >
+          <a
+            href="/Board/List.aspx?id=review"
+            class="menu_box"
+            title="후기게시판"
+            ><i class="fas fa-user-edit"></i>후기게시판</a
+          >
+          <a
+            href="/Board/List.aspx?id=contactus"
+            class="menu_box"
+            title="제휴문의"
+            ><i class="fas fa-hands-helping"></i>제휴문의</a
+          >
+          <a href="/" class="menu_box_last" title=""></a>
+        </div>
+      </div>
+    </nav>
+    <!-- sidebar -->
+    <main class="max-width-1200" style="display: flex">
+      <section style="width: 230px">
+        {% for type, locations in room_types.items %}
+        <div class="type-box">
+          <div class="type-name">{{type}}</div>
+          <div class="type-region--container">
+            {% for location in locations %}
+            <div class="type-region">
+              <a href="/">{{location}}</a>
+              <a href="/" class="review-btn">후기</a>
             </div>
-        </nav>
-        {% block content %}
-        {% endblock %}
-    </body>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </section>
+      <div style="flex-grow: 1">{% block content %} {% endblock %}</div>
+    </main>
+  </body>
 </html>

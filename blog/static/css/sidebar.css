@@ -1,0 +1,37 @@
+.type-box {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin: 12px 0;
+  font-size: 14px;
+}
+.type-name {
+  padding: 12px;
+  background-color: gray;
+  margin: 2px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+}
+.type-region {
+  width: 100%;
+  padding: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.review-btn {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px 7px;
+  cursor: pointer;
+}
+.review-btn:hover {
+  background-color: gray;
+  color: white;
+}
+.type-region--container .type-region:not(:last-child) {
+  border-bottom: 1px solid gray;
+}
