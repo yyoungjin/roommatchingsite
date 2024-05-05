@@ -14,30 +14,21 @@
                     
                     <div>
                         <ul id="webticker" style="float: left; font-weight: bold; direction: ltr; font-size: 12px; color: rgb(85, 85, 85);">
-                            
-                            
                         <li style="opacity: 0.8394;">접속주소 https://www.roommatch</li><li style="display: none;">주소변경 및 긴급공지 https://www.roomtmp [name SNS]</li></ul>
-                        <script>
-                            $(document).ready(function () {
-                                $('ul#webticker').inewsticker({
-                                    speed: 5000,
-                                    effect: 'fade',
-                                    dir: 'ltr',
-                                    font_size: 12,
-                                    color: '#555',
-                                    delay_after: 1000
-                                });
-                            });
-                        </script>
                     </div>
                     <div id="login_info_box1">
+                    {% if user.is_authenticated %}
                         <span class="g_nick">
-                            <img src="/member/level/1.gif">[id] Lv.[1]</span><span class="divide">|</span><span class="point"><i class="fab fa-product-hunt" style="color: #ff6e00;"></i>&nbsp;1,375</span>
+                            <img src="/member/level/1.gif">{{ user.username }} [id] Lv.[1]</span><span class="divide">|</span><span class="point"><i class="fab fa-product-hunt" style="color: #ff6e00;"></i><a href="{% url 'users:logout' %}">로그아웃</a></span>
                         <span class="divide">|</span>
                         &nbsp;<a class="setting" href="/Member/Modify.aspx" data-toggle="tooltip" data-trigger="hover" title=" 설정 "><i class="fas fa-cogs"></i></a>
                         &nbsp;&nbsp;<a class="mail" href="/Member/NoteList.aspx?mode=inbox" data-toggle="tooltip" data-trigger="hover" title="쪽지확인"><i class="far fa-envelope"></i>
                             0</a>
                         &nbsp;&nbsp;<a class="logout" href="/Member/Logout.aspx" data-toggle="tooltip" data-trigger="hover" title="로그아웃"><i class="fas fa-times-circle"></i></a>
+                    {% else %}
+                    <!-- 로그인 전 -->
+                        <span class="g_nick"></span><a href="{% url 'users:login' %}">로그인 </a><span class="divide">|</span><span class="point"><a href="{% url 'users:signup' %}"> 회원가입</a></span>
+                    {% endif %}
                     </div>
                     
                 </div>
@@ -96,5 +87,7 @@
                 </div>
             </div>
         </nav>
+        {% block content %}
+        {% endblock %}
     </body>
 </html>
