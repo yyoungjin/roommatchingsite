@@ -84,12 +84,13 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .max-width-1200 {
-  max-width: 1200px;
+  width: min(1200px, 100%);
+  padding: 0 20px;
   margin: 0 auto;
 }
 
 header .login_info {
-  width: 1200px;
+  /* width: 1200px; */
   height: auto;
   margin: 0 auto;
   padding-top: 3px;
@@ -98,7 +99,7 @@ header .login_info {
 }
 
 header .wrap {
-  width: 1200px;
+  /* width: 1200px; */
   height: 80px;
   margin: 0 auto;
   display: table;
@@ -157,8 +158,6 @@ nav {
 }
 
 nav.pc {
-  width: 100%;
-  min-width: 1200px;
   z-index: 98;
   height: 44px;
   background-color: #2962b1;
@@ -167,15 +166,11 @@ nav.pc {
 
 nav.pc .nav_header {
   position: relative;
-  width: 1200px;
-  margin: 0 auto;
-  padding: 0 0px;
   color: white;
 }
 
 nav.pc {
   width: 100%;
-  min-width: 1200px;
   z-index: 98;
   height: 44px;
   background-color: #2962b1;
